@@ -1,19 +1,23 @@
 import Router from "koa-router"
 const router = Router();
+
+const APIPREFIX = 'api';
+
 import { save } from "../controllers/index"
+
 export default function(app) {
-	router.get("/",async(ctx,next)=>{
-		console.log("哈哈");
-        ctx.response.type = "text/html";
-        ctx.response.body = "<h1>呵呵呵呵</h1>";
+	router.get(APIPREFIX+"/",async(ctx,next)=>{
+        ctx.response.body = {
+            'name':'www'
+        };
 		await next();
 	});
-	router.get('/index',async(ctx,next)=>{
+	router.get(APIPREFIX+'/index',async(ctx,next)=>{
         ctx.response.type = "text/html";
         ctx.response.body = "<h1>Index</h1>";
         await next();
     });
-    router.get('/save',save);
+    router.get(APIPREFIX+'/save',save);
 	app
         .use(router.routes())
 		.use(router.allowedMethods());
